@@ -38,9 +38,9 @@ MirrorURL: http://ftp.ca.debian.org/debian/
             dpkg-reconfigure locales
     rm ncbi-blast-2.3.0+-1.x86_64.rpm
     rm -r /var/lib/apt/lists/*
-    tar zxf meme_5.0.5.tar.gz
-    cd meme_5.0.5
-    ./configure --prefix=/usr/bin/meme --with-url=http://meme-suite.org/ --enable-build-libxml2 --enable-build-libxslt
+    tar zxf meme-5.0.5.tar.gz
+    cd meme-5.0.5
+    ./configure --prefix=/home/meme --with-url=http://meme-suite.org/ --enable-build-libxml2 --enable-build-libxslt
     make
     make test
     make install
