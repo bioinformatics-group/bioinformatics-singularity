@@ -42,5 +42,7 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     cd meme-5.0.5
     ./configure --prefix=/home/meme --with-url=http://meme-suite.org/ --enable-build-libxml2 --enable-build-libxslt
     make
-    make test
     make install
+    cd ..
+    ln -s /home/meme/bin/* /usr/local/bin
+    ln -s /home/meme/libexec/meme-5.0.5/* /usr/local/bin
