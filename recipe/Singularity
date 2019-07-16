@@ -4,12 +4,13 @@ MirrorURL: http://ftp.ca.debian.org/debian/
 
 %files
     setup.R
+    ghostscript-9.27.tar.gz
     meme-5.0.5.tar.gz
 
 %post
     export DEBIAN_FRONTEND=noninteractive
     apt-get update
-    apt-get install -y curl gnupg2
+    apt-get install -y curl gnupg2 python
     apt-get install -y ca-certificates lsb-release apt-transport-https dirmngr
     curl --silent -o apt.gpg https://packages.sury.org/php/apt.gpg
     echo "deb http://cran.rstudio.com/bin/linux/debian stretch-cran35/" >> /etc/apt/sources.list
@@ -20,6 +21,23 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
     dpkg-reconfigure --frontend noninteractive tzdata
     apt-get -y install gfortran g++ perl alien git r-base libcurl4-openssl-dev libxml2-dev
+    echo | cpan
+    cpan File::Which
+    cpan HTML::Template
+    cpan HTML::TreeBuilder
+    cpan JSON
+    cpan Log::Log4perl
+    cpan Math::CDF
+    cpan XML::Simple
+    cpan XML::Compile::SOAP11
+    cpan XML::Compile::WSDL11
+
+    tar -xzf ghostscript-9.27.tar.gz
+    cd ghostscript-9.27
+    ./configure
+    make
+    make install    
+    cd ..    
     Rscript setup.R
     curl -s ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.3.0/ncbi-blast-2.3.0+-1.x86_64.rpm --output ncbi-blast-2.3.0+-1.x86_64.rpm
     alien -i ncbi-blast-2.3.0+-1.x86_64.rpm
@@ -30,6 +48,7 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     cd ../..
     rm -r tcoffee
     apt-get update && apt-get install -y && \
+
            apt-get install -y locales locales-all && \
             export LANGUAGE=en_US.UTF-8 && \
             export LANG=en_US.UTF-8 && \
@@ -44,3 +63,6 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     make
     make test
     make install
+    cd ..
+    ln -s /home/meme/bin/* /usr/local/bin
+    ln -s /home/meme/libexec/meme-5.0.5/* /usr/local/bin
