@@ -42,10 +42,10 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     curl -s ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.3.0/ncbi-blast-2.3.0+-1.x86_64.rpm --output ncbi-blast-2.3.0+-1.x86_64.rpm
     alien -i ncbi-blast-2.3.0+-1.x86_64.rpm
     git clone https://github.com/cbcrg/tcoffee.git tcoffee
-    cd tcoffee/compile
+    cd tcoffee/t_coffee/src
     make t_coffee
     cp t_coffee /usr/bin/
-    cd ../..
+    cd ../../..
     rm -r tcoffee
     apt-get update && apt-get install -y && \
 
