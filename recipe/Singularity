@@ -6,6 +6,7 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     setup.R
     ghostscript-9.27.tar.gz
     meme-5.0.5.tar.gz
+    class_7.3-15.tar.gz
 
 %post
     export DEBIAN_FRONTEND=noninteractive
@@ -39,6 +40,7 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     make install    
     cd ..    
     Rscript setup.R
+	R CMD INSTALL class_7.3-15.tar.gz
     curl -s ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.3.0/ncbi-blast-2.3.0+-1.x86_64.rpm --output ncbi-blast-2.3.0+-1.x86_64.rpm
     alien -i ncbi-blast-2.3.0+-1.x86_64.rpm
     git clone https://github.com/cbcrg/tcoffee.git tcoffee
