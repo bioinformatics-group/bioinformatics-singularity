@@ -48,6 +48,6 @@ makeblastdb: 2.3.0+
 Package: blast 2.3.0, build Nov 30 2015 13:32:08
 ```
 
-The above was done via qlogin, but of course you would call things in the same manner using qsub when submitting a job. You'll notice that a specific binding is required currently on speed ```-B /nfs/speed-scratch/{$uid}:/speed-scratch/{$uid}``` because it gets all weird on you if you skip that. If you have enough space in your home directory, that's not needed, but I need ```/speed-scratch``` to do anything these days.
+The above was done via qlogin, but of course you would call things in the same manner using qsub when submitting a job. You'll notice that a specific binding is required when using speed-scratch (or any of the nfs-mounted directories, I suspect) as your working directory: ```-B `pwd`:$PWD```. It gets all weird on you if you skip that. If you have enough space in your home directory, that's not needed, but I need ```/speed-scratch``` to do anything these days.
 
 
