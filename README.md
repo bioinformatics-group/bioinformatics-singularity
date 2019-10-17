@@ -35,7 +35,7 @@ chmod 700 test.sh
 
 Finally, I run the image with singularity:
 ```bash
-singularity exec -B /nfs/speed-scratch/{$uid}:/speed-scratch/{$uid} /speed-scratch/bioinformatics-group/bioinformatics-singularity.simg ./test.sh
+singularity exec -B `pwd`:$PWD /speed-scratch/bioinformatics-group/bioinformatics-singularity.simg ./test.sh
 ```
 
 I get the expected output that shows my directory contents and the version of ```makeblastdb```
