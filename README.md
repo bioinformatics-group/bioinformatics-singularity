@@ -1,12 +1,17 @@
 # bioinformatics-singularity
 The software we use to run things in our lab. Some of the software is older than what is available to be consistent with other publications.
 
+To run it with out pre-built image, you just call:
+
+```singularity shell https://tootsuite.encs.concordia.ca/singularity-images/bioinformatics-singularity.simg```
+
+Binaries are made available in ```/usr/bin``` so you can just run things like ```R``` or ```t_coffee```
+
 Among other things, we use:
  * R 3.5
  * BLAST 2.3.0+
  * tcoffee (current version from git)
  * eggnog-mapper (current version from git)
- 
  
 ## eggnog-mapper
 We have not included the contents of the `data` dir for `eggnog-mapper` and thus any commands using it should use `--data_dir` to specify where those very large files are. IF you need those files, you can use the download script provided by eggnog-mapper `/usr/bin/eggnog-mapper/download_eggnog_data.py`, but you'll still need to pass the directory where those files will end up via `--data_dir`. You'll want to set this up outside the singularity image. 
@@ -21,3 +26,43 @@ singularity exec -B `pwd`:$PWD -B /speed-scratch/bioinformatics-group/datasets/e
 ````
 
 I suggest making the data files (approximately 40G) available to your images on as fast a disk as possible (I've seen putting it in `/dev/shm` suggested).
+=======
+
+
+## Running on Concordia's HPC infrastructure
+If you're at Concordia and have requested access to speed (rt-ex-hpc), then you may want to be running jobs here. You can readily use this image, as we keep a local copy in ```/speed-scratch/bioinformatics-group/bioinformatics-singularity.simg```. In that case you can go to your working directory where you have your expected script and just run it. Keep in mind that speed likes you to use tcsh, but you're running bash from within the image.
+
+For example, I can make/go to my working directory
+```bash
+mkdir -p /speed-scratch/{$uid}/test3
+cd /speed-scratch/{$uid}/test3
+```
+Then I can create a file test.sh:
+```bash
+#!/bin/bash
+ls -latr
+makeblastdb -version
+```
+
+and give it appropraite permissions to run:
+```bash
+chmod 700 test.sh
+```
+
+Finally, I run the image with singularity:
+```bash
+singularity exec -B `pwd`:$PWD /speed-scratch/bioinformatics-group/bioinformatics-singularity.simg ./test.sh
+```
+
+I get the expected output that shows my directory contents and the version of ```makeblastdb```
+```
+total 8
+drwxrwxr-x 6 sthiel sthiel 4096 Oct 17 10:54 ..
+-rwx------ 1 sthiel sthiel   43 Oct 17 11:41 test.sh
+drwxrwx--- 2 sthiel sthiel 4096 Oct 17 11:42 .
+makeblastdb: 2.3.0+
+Package: blast 2.3.0, build Nov 30 2015 13:32:08
+```
+
+The above was done via qlogin, but of course you would call things in the same manner using qsub when submitting a job. You'll notice that a specific binding is required when using speed-scratch (or any of the nfs-mounted directories, I suspect) as your working directory: ```-B `pwd`:$PWD```. It gets all weird on you if you skip that. If you have enough space in your home directory, that's not needed, but I need ```/speed-scratch``` to do anything these days.
+
