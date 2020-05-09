@@ -8,7 +8,6 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     meme-5.0.5.tar.gz
     class_7.3-15.tar.gz
     emapper.sh
-    hmmer_v3.3.tar.gz
     secator.tar.gz
     xdet_linux64
 
@@ -53,6 +52,8 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     make
     make install
     cd ..
+    rm -rf ghostscript-9.27
+
     Rscript setup.R
     R CMD INSTALL class_7.3-15.tar.gz
     curl -s ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.3.0/ncbi-blast-2.3.0+-1.x86_64.rpm --output ncbi-blast-2.3.0+-1.x86_64.rpm
@@ -72,12 +73,26 @@ MirrorURL: http://ftp.ca.debian.org/debian/
      locale-gen en_US.UTF-8 && \
      dpkg-reconfigure locales
     rm ncbi-blast-2.3.0+-1.x86_64.rpm
-    rm -r /var/lib/apt/lists/*
+
     tar zxf meme-5.0.5.tar.gz
     cd meme-5.0.5
     ./configure --prefix=/home/meme --with-url=http://meme-suite.org/ --enable-build-libxml2 --enable-build-libxslt
     make
     make install
     cd ..
+    rm -rf meme-5.0.5
+
     ln -s /home/meme/bin/* /usr/local/bin
     ln -s /home/meme/libexec/meme-5.0.5/* /usr/local/bin
+
+    rm setup.R
+    rm ghostscript-9.27.tar.gz
+    rm meme-5.0.5.tar.gz
+    rm class_7.3-15.tar.gz
+    rm emapper.sh
+    rm secator.tar.gz
+    rm xdet_linux64
+
+    apt-get clean
+    rm -r /var/lib/apt/lists/*
+
