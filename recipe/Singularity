@@ -8,6 +8,9 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     meme-5.0.5.tar.gz
     class_7.3-15.tar.gz
     emapper.sh
+    hmmer_v3.3.tar.gz
+    secator.tar.gz
+    xdet_linux64
 
 %post
     export DEBIAN_FRONTEND=noninteractive
@@ -27,7 +30,8 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     mv eggnog-mapper /usr/bin/eggnog-mapper
     cp emapper.sh /usr/bin
     chmod 755 /usr/bin/emapper.sh
-
+    cp xdet_linux64 /usr/bin/xdet
+    chmod 755 /usr/bin/xdet
     
     ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
     dpkg-reconfigure --frontend noninteractive tzdata
