@@ -1,0 +1,93 @@
+Bootstrap: debootstrap
+OSVersion: stretch
+MirrorURL: http://ftp.ca.debian.org/debian/
+
+%files
+    setup.R
+    ghostscript-9.27.tar.gz
+    meme-5.0.5.tar.gz
+    class_7.3-15.tar.gz
+    emapper.sh
+
+%post
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get update
+    apt-get install -y curl gnupg2 python wget python-pip git
+    apt-get install -y ca-certificates lsb-release apt-transport-https dirmngr
+    curl --silent -o apt.gpg https://packages.sury.org/php/apt.gpg
+    echo "deb http://cran.rstudio.com/bin/linux/debian stretch-cran35/" >> /etc/apt/sources.list
+    apt-key add /apt.gpg
+    apt-key adv --keyserver keys.gnupg.net --recv-key 'E19F5F87128899B192B1A2C2AD5F960A256A04AF'
+    apt-get -qqq update
+    apt-get -qqq upgrade
+    
+    pip install biopython
+    git clone https://github.com/jhcepas/eggnog-mapper.git
+    find eggnog-mapper | grep "\.git/" | xargs rm -rf
+    mv eggnog-mapper /usr/bin/eggnog-mapper
+    cp emapper.sh /usr/bin
+    chmod 755 /usr/bin/emapper.sh
+
+    
+    ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
+    dpkg-reconfigure --frontend noninteractive tzdata
+    apt-get -y install gfortran g++ perl alien git r-base libcurl4-openssl-dev libxml2-dev
+    echo | cpan
+    cpan File::Which
+    cpan HTML::Template
+    cpan HTML::TreeBuilder
+    cpan JSON
+    cpan Log::Log4perl
+    cpan Math::CDF
+    cpan XML::Simple
+    cpan XML::Compile::SOAP11
+    cpan XML::Compile::WSDL11
+
+    tar -xzf ghostscript-9.27.tar.gz
+    cd ghostscript-9.27
+    ./configure
+    make
+    make install
+    cd ..
+    Rscript setup.R
+    R CMD INSTALL class_7.3-15.tar.gz
+    curl -s ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.3.0/ncbi-blast-2.3.0+-1.x86_64.rpm --output ncbi-blast-2.3.0+-1.x86_64.rpm
+    alien -i ncbi-blast-2.3.0+-1.x86_64.rpm
+    git clone https://github.com/cbcrg/tcoffee.git tcoffee
+    cd tcoffee/t_coffee/src
+    make t_coffee
+    cp t_coffee /usr/bin/
+    cd ../../..
+    rm -r tcoffee
+    apt-get update && apt-get install -y && \
+
+    apt-get install -y locales locales-all && \
+     export LANGUAGE=en_US.UTF-8 && \
+     export LANG=en_US.UTF-8 && \
+     export LC_ALL=en_US.UTF-8 && \
+     locale-gen en_US.UTF-8 && \
+     dpkg-reconfigure locales
+    rm ncbi-blast-2.3.0+-1.x86_64.rpm
+    rm -r /var/lib/apt/lists/*
+    tar zxf meme-5.0.5.tar.gz
+    cd meme-5.0.5
+    ./configure --prefix=/home/meme --with-url=http://meme-suite.org/ --enable-build-libxml2 --enable-build-libxslt
+    make
+    make install
+    cd ..
+    ln -s /home/meme/bin/* /usr/local/bin
+    ln -s /home/meme/libexec/meme-5.0.5/* /usr/local/bin
+
+    git clone https://github.com/bioinformatics-group/TranCEP.git
+    mkdir /usr/local/bin/TranCEPv1.00
+    cp TranCEP/src/TranCEPTool.R /usr/local/bin/TranCEP.R
+    chmod 755 /usr/local/bin/TranCEP.R
+    cp TranCEP/src/TCS_MSA_PAAC.R /usr/local/bin/TranCEPv1.00/
+    cp -R TranCEP/db /usr/local/bin/TranCEPv1.00/
+    cp -R TranCEP/tranCEP.rda /usr/local/bin/TranCEPv1.00/
+    sed -i 's/trancepdir <- "."/trancepdir <- "\/usr\/local\/bin\/TranCEPv1.00"/g' /usr/local/bin/TranCEP.R
+    sed -i "s/\(require([^)]*)\)/suppressMessages(suppressWarnings(\1))/g" /usr/local/bin/TranCEP.R
+    sed -i "s/\(library([^)]*)\)/suppressMessages(suppressWarnings(\1))/g" /usr/local/bin/TranCEP.R
+    rm -rf TranCEP
+
+    
