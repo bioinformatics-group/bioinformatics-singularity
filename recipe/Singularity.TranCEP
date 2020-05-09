@@ -8,13 +8,11 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     meme-5.0.5.tar.gz
     class_7.3-15.tar.gz
     emapper.sh
-    secator.tar.gz
-    xdet_linux64
 
 %post
     export DEBIAN_FRONTEND=noninteractive
     apt-get update
-    apt-get install -y curl gnupg2 python wget python-pip git libssl-dev
+    apt-get install -y curl gnupg2 python wget python-pip git
     apt-get install -y ca-certificates lsb-release apt-transport-https dirmngr
     curl --silent -o apt.gpg https://packages.sury.org/php/apt.gpg
     echo "deb http://cran.rstudio.com/bin/linux/debian stretch-cran35/" >> /etc/apt/sources.list
@@ -29,8 +27,7 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     mv eggnog-mapper /usr/bin/eggnog-mapper
     cp emapper.sh /usr/bin
     chmod 755 /usr/bin/emapper.sh
-    cp xdet_linux64 /usr/bin/xdet
-    chmod 755 /usr/bin/xdet
+
     
     ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
     dpkg-reconfigure --frontend noninteractive tzdata
@@ -52,8 +49,6 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     make
     make install
     cd ..
-    rm -rf ghostscript-9.27
-
     Rscript setup.R
     R CMD INSTALL class_7.3-15.tar.gz
     curl -s ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.3.0/ncbi-blast-2.3.0+-1.x86_64.rpm --output ncbi-blast-2.3.0+-1.x86_64.rpm
@@ -73,26 +68,26 @@ MirrorURL: http://ftp.ca.debian.org/debian/
      locale-gen en_US.UTF-8 && \
      dpkg-reconfigure locales
     rm ncbi-blast-2.3.0+-1.x86_64.rpm
-
+    rm -r /var/lib/apt/lists/*
     tar zxf meme-5.0.5.tar.gz
     cd meme-5.0.5
     ./configure --prefix=/home/meme --with-url=http://meme-suite.org/ --enable-build-libxml2 --enable-build-libxslt
     make
     make install
     cd ..
-    rm -rf meme-5.0.5
-
     ln -s /home/meme/bin/* /usr/local/bin
     ln -s /home/meme/libexec/meme-5.0.5/* /usr/local/bin
 
-    rm setup.R
-    rm ghostscript-9.27.tar.gz
-    rm meme-5.0.5.tar.gz
-    rm class_7.3-15.tar.gz
-    rm emapper.sh
-    rm secator.tar.gz
-    rm xdet_linux64
+    git clone https://github.com/bioinformatics-group/TranCEP.git
+    mkdir /usr/local/bin/TranCEPv1.00
+    cp TranCEP/src/TranCEPTool.R /usr/local/bin/TranCEP.R
+    chmod 755 /usr/local/bin/TranCEP.R
+    cp TranCEP/src/TCS_MSA_PAAC.R /usr/local/bin/TranCEPv1.00/
+    cp -R TranCEP/db /usr/local/bin/TranCEPv1.00/
+    cp -R TranCEP/tranCEP.rda /usr/local/bin/TranCEPv1.00/
+    sed -i 's/trancepdir <- "."/trancepdir <- "\/usr\/local\/bin\/TranCEPv1.00"/g' /usr/local/bin/TranCEP.R
+    sed -i "s/\(require([^)]*)\)/suppressMessages(suppressWarnings(\1))/g" /usr/local/bin/TranCEP.R
+    sed -i "s/\(library([^)]*)\)/suppressMessages(suppressWarnings(\1))/g" /usr/local/bin/TranCEP.R
+    rm -rf TranCEP
 
-    apt-get clean
-    rm -r /var/lib/apt/lists/*
-
+    
