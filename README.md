@@ -18,8 +18,8 @@ Binaries are made available in ```/usr/bin``` so you can just run things like ``
 
 Among other things, we use:
  * R 3.5
- * BLAST 2.3.0+
- * tcoffee (current version from git)
+ * BLAST 2.6.0+
+ * tcoffee (current version from the science packages in Debian Buster)
  * eggnog-mapper (current version from git)
  
 ## eggnog-mapper
