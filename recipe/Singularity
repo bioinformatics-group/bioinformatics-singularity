@@ -11,6 +11,7 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     secator.tar.gz
     xdet_linux64
     AQUA.tcl
+    TFTargetCaller_0.7.tar
 
 %post
     export DEBIAN_FRONTEND=noninteractive
@@ -86,6 +87,7 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     cp secator /usr/bin/secator
     chmod 755 /usr/bin/secator
     cd ..
+    rm -rf Secator
 
     ln -s /home/meme/bin/* /usr/local/bin
     ln -s /home/meme/libexec/meme-5.0.5/* /usr/local/bin
@@ -97,6 +99,7 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     rm emapper.sh
     rm secator.tar.gz
     rm xdet_linux64
+    rm TFTargetCaller_0.7.tar
 
     apt-get clean
     rm -r /var/lib/apt/lists/*

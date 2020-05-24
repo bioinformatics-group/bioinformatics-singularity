@@ -15,7 +15,7 @@ BiocManager::install("iRafNet", update = TRUE, ask = FALSE)
 BiocManager::install("ConsensusClusterPlus", update = TRUE, ask = FALSE)
 BiocManager::install("BiocFileCache", update = TRUE, ask = FALSE)
 BiocManager::install("biomaRt", update = TRUE, ask = FALSE)
-install.packages("TFTargetCaller_0.7.tar", repos = NULL, type="source")
+install.packages("Hmisc")
 BiocManager::install( c("org.Hs.eg.db","STRINGdb","GOSemSim"),dependencies=T)
 install.packages ( c("readr", "tidyverse", "RGeode", "tseries"), dependencies = T)
 
@@ -40,3 +40,4 @@ install.packages("diceR")
 install.packages("kernlab")
 install.packages("clue")
 
+install.packages("TFTargetCaller_0.7.tar", repos = NULL, type="source")
