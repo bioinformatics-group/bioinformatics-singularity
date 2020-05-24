@@ -10,6 +10,8 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     emapper.sh
     secator.tar.gz
     xdet_linux64
+    AQUA.tcl
+    TFTargetCaller_0.7.tar
 
 %post
     export DEBIAN_FRONTEND=noninteractive
@@ -31,6 +33,8 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     chmod 755 /usr/bin/emapper.sh
     cp xdet_linux64 /usr/bin/xdet
     chmod 755 /usr/bin/xdet
+
+    apt-get install -y clustalo mafft muscle fsa clustalw amap-align dialign-tx kalign libsoap-lite-perl libxml-simple-perl mustang poa prank probcons proda tm-align boxshade seaview ncbi-blast+ t-coffee hmmer amap-align
     
     ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
     dpkg-reconfigure --frontend noninteractive tzdata
@@ -56,14 +60,6 @@ MirrorURL: http://ftp.ca.debian.org/debian/
 
     Rscript setup.R
     R CMD INSTALL class_7.3-15.tar.gz
-    curl -s ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.3.0/ncbi-blast-2.3.0+-1.x86_64.rpm --output ncbi-blast-2.3.0+-1.x86_64.rpm
-    alien -i ncbi-blast-2.3.0+-1.x86_64.rpm
-    git clone https://github.com/cbcrg/tcoffee.git tcoffee
-    cd tcoffee/t_coffee/src
-    make t_coffee
-    cp t_coffee /usr/bin/
-    cd ../../..
-    rm -r tcoffee
     apt-get update && apt-get install -y && \
 
     apt-get install -y locales locales-all && \
@@ -72,7 +68,6 @@ MirrorURL: http://ftp.ca.debian.org/debian/
      export LC_ALL=en_US.UTF-8 && \
      locale-gen en_US.UTF-8 && \
      dpkg-reconfigure locales
-    rm ncbi-blast-2.3.0+-1.x86_64.rpm
 
     tar zxf meme-5.0.5.tar.gz
     cd meme-5.0.5
@@ -81,6 +76,18 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     make install
     cd ..
     rm -rf meme-5.0.5
+
+    apt-get install -y tcl
+    mv AQUA.tcl /usr/bin
+    chmod 755 /usr/bin/AQUA.tcl
+
+    tar xzf secator.tar.gz
+    cd Secator
+    make
+    cp secator /usr/bin/secator
+    chmod 755 /usr/bin/secator
+    cd ..
+    rm -rf Secator
 
     ln -s /home/meme/bin/* /usr/local/bin
     ln -s /home/meme/libexec/meme-5.0.5/* /usr/local/bin
@@ -92,6 +99,7 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     rm emapper.sh
     rm secator.tar.gz
     rm xdet_linux64
+    rm TFTargetCaller_0.7.tar
 
     apt-get clean
     rm -r /var/lib/apt/lists/*

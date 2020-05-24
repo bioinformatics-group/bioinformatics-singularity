@@ -3,6 +3,8 @@ The software we use to run things in our lab. Some of the software is older than
 
 
 # Building the Image
+Make sure `/tmp` has enough space! Why wouldn't it? I'm not sure, but one of the nice build environments I had only allocated 350M to `/tmp` and that broke things in confusing and unexpected ways. I'm used to singularity just saying no when there's a trouble, but since it happned while R was doing installs, it snuck by. 2GB should be plenty of room. I'm still building with 2.6.1, but I believe I can support modern 3.x Singularity.
+
 `singularity build --sandbox <PathToBasedir>/image Singularity`
 This builds the image as a directory structure that you can go into. You can work in this in writable mode if you need to tweak (or even from outside singularity). 
 
@@ -18,8 +20,8 @@ Binaries are made available in ```/usr/bin``` so you can just run things like ``
 
 Among other things, we use:
  * R 3.5
- * BLAST 2.3.0+
- * tcoffee (current version from git)
+ * BLAST 2.6.0+
+ * tcoffee (current version from the science packages in Debian Buster)
  * eggnog-mapper (current version from git)
  
 ## eggnog-mapper
