@@ -35,7 +35,7 @@ install.packages("protr")
 install.packages("ISLR")
 install.packages("e1071")
 install.packages("caret")
-
+install.packages("R.utils")
 install.packages("diceR")
 install.packages("kernlab")
 install.packages("clue")
