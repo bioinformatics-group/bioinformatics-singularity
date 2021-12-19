@@ -12,7 +12,7 @@ Make sure `/tmp` has enough space! Why wouldn't it? I'm not sure, but one of the
 `singularity build --sandbox <PathToBasedir>/image Singularity`
 This builds the image as a directory structure that you can go into. You can work in this in writable mode if you need to tweak (or even from outside singularity). 
 
-`singularity build <PathToBasedir>/bioinformatics-singularity.simg <PathToBasedir>/image
+`singularity build <PathToBasedir>/bioinformatics-singularity.simg <PathToBasedir>/image`
 This builds the image as a squashfs formatted image, suitable for putting on environments where people will/run use it in a fixed form.
 
 # Running the Image
