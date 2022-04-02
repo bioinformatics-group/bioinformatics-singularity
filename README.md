@@ -3,18 +3,33 @@ The software we use to run things in our lab. Some of the software is older than
 
 
 # Building the Image
-Make sure `/tmp` has enough space! Why wouldn't it? I'm not sure, but one of the nice build environments I had only allocated 350M to `/tmp` and that broke things in confusing and unexpected ways. I'm used to singularity just saying no when there's a trouble, but since it happned while R was doing installs, it snuck by. 2GB should be plenty of room. I'm still building with 2.6.1, but I believe I can support modern 3.x Singularity.
+Make sure `/tmp` has enough space! Why wouldn't it? I'm not sure, but one of the nice build environments I had only allocated 350M to `/tmp` and that broke things in confusing and unexpected ways. I'm used to singularity just saying no when there's a trouble, but since it happned while R was doing installs, it snuck by. 2GB should be plenty of room. I am now building with Singularity 3.x.
+
+The current simple image build I'm using is on a vm. I install Centos 9 (Stream), then run:
+````sh
+yum -y install epel-release
+yum -y install singularity git wget debootstrap
+yum -y install nano
+````
 
 `singularity build --sandbox <PathToBasedir>/image Singularity`
 This builds the image as a directory structure that you can go into. You can work in this in writable mode if you need to tweak (or even from outside singularity). 
 
-`singularity build <PathToBasedir>/bioinformatics-singularity.simg <PathToBasedir>/image
+`singularity build <PathToBasedir>/bioinformatics-singularity.simg <PathToBasedir>/image`
 This builds the image as a squashfs formatted image, suitable for putting on environments where people will/run use it in a fixed form.
 
 # Running the Image
-To run it with out pre-built image, you just call:
+To run it with our pre-built image, you just call:
 
 ```singularity shell https://tootsuite.encs.concordia.ca/singularity-images/bioinformatics-singularity.simg```
+
+I reccomend running it with an overlay as some of our tools have the bad habit of trying to write into their own temporary space:
+````sh
+mkdir /<wherever>/overlay
+singularity shell --overlay /<wherever>/overlay https://tootsuite.encs.concordia.ca/singularity-images/bioinformatics-singularity.simg
+````
+
+Eventually, intermediate_files used by our tools won't need such a workaround.
 
 Binaries are made available in ```/usr/bin``` so you can just run things like ```R``` or ```t_coffee```
 
