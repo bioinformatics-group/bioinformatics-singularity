@@ -13,7 +13,7 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     xdet_linux64
     TFTargetCaller_0.7.tar
     TooT_TTool.R
-    TooT_TSCool.R
+    TooT_TSCTool.R
 
 %post
     export DEBIAN_FRONTEND=noninteractive
