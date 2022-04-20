@@ -11,7 +11,6 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     emapper.sh
     secator.tar.gz
     xdet_linux64
-    AQUA.tcl
     TFTargetCaller_0.7.tar
 
 %post
@@ -129,9 +128,12 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     cp -r TooT-T/* /usr/local/bin/TooT-T
     chmod 755 /usr/local/bin/TooT-T/src/TooT_TTool.R
     rm -rf TooT-T
+    ln -s /usr/local/bin/TooT-T/src/TooT_TTool.R /usr/local/bin/TooT_TTool.R
 
     git clone https://github.com/ramou/TooT-SC.git
     mkdir /usr/local/bin/TooT-SC
     cp -r TooT-SC/* /usr/local/bin/TooT-SC
     chmod 755 /usr/local/bin/TooT-SC/src/TooT_SCTool.R
     rm -rf TooT-SC
+    ln -s /usr/local/bin/TooT-SC/src/TooT_SCTool.R /usr/local/bin/TooT_SCTool.R
+
