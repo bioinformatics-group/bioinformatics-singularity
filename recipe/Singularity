@@ -12,6 +12,8 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     secator.tar.gz
     xdet_linux64
     TFTargetCaller_0.7.tar
+    TooT_TTool.R
+    TooT_TSCool.R
 
 %post
     export DEBIAN_FRONTEND=noninteractive
@@ -21,6 +23,7 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     echo "deb http://cran.rstudio.com/bin/linux/debian stretch-cran35/" >> /etc/apt/sources.list
     apt-key add /apt.gpg
     apt-key adv --keyserver keyserver.ubuntu.com --recv-key 'FCAE2A0E115C3D8A'
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B8F25A8A73EACF41
     apt-get -qqq update
     apt-get -qqq upgrade
 
@@ -128,12 +131,14 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     cp -r TooT-T/* /usr/local/bin/TooT-T
     chmod 755 /usr/local/bin/TooT-T/src/TooT_TTool.R
     rm -rf TooT-T
-    ln -s /usr/local/bin/TooT-T/src/TooT_TTool.R /usr/local/bin/TooT_TTool.R
+    mv TooT_TTool.R /usr/local/bin/TooT_TTool.R
+    chmod 755 /usr/local/bin/TooT_TTool.R
 
     git clone https://github.com/ramou/TooT-SC.git
     mkdir /usr/local/bin/TooT-SC
     cp -r TooT-SC/* /usr/local/bin/TooT-SC
     chmod 755 /usr/local/bin/TooT-SC/src/TooT_SCTool.R
     rm -rf TooT-SC
-    ln -s /usr/local/bin/TooT-SC/src/TooT_SCTool.R /usr/local/bin/TooT_SCTool.R
+    mv TooT_SCTool.R /usr/local/bin/TooT_TSCool.R
+    chmod 755 /usr/local/bin/TooT_TSCool.R
 
