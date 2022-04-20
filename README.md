@@ -3,7 +3,7 @@ The software we use to run things in our lab. Some of the software is older than
 
 
 # Building the Image
-Make sure `/tmp` has enough space! Why wouldn't it? I'm not sure, but one of the nice build environments I had only allocated 350M to `/tmp` and that broke things in confusing and unexpected ways. I'm used to singularity just saying no when there's a trouble, but since it happned while R was doing installs, it snuck by. 2GB should be plenty of room. I am now building with Singularity 3.x.
+Make sure `/tmp` has enough space! Why wouldn't it? I'm not sure, but one of the nice build environments I had only allocated 350M to `/tmp` and that broke things in confusing and unexpected ways. I'm used to singularity just saying no when there's a trouble, but since it happned while R was doing installs, it snuck by. 2GB should be plenty of room, but I've had to be cautious, including making sure I had enough RAM (more weirdness with R, 16GB is *safe*). I am now building with Singularity 3.x.
 
 The current simple image build I'm using is on a vm. I install Centos 9 (Stream), then run:
 ````sh
