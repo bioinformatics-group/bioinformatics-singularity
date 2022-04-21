@@ -40,6 +40,5 @@ install.packages("R.utils")
 install.packages("diceR")
 install.packages("kernlab")
 install.packages("clue")
-install.packages("xgboost")
 
 install.packages("TFTargetCaller_0.7.tar", repos = NULL, type="source")
