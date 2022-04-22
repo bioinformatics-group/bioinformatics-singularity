@@ -53,16 +53,6 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     cpan XML::Compile::SOAP11
     cpan XML::Compile::WSDL11
 
-    git clone https://github.com/dmlc/xgboost
-    cd xgboost
-    git checkout tags/v1.5.2
-    git submodule init
-    git submodule update
-    cd R-package
-    R CMD INSTALL .
-    cd ../..
-    rm -rf xgboost
-
     git clone https://github.com/desmid/mview.git
     cd mview
     perl Makefile.PL
@@ -80,6 +70,18 @@ MirrorURL: http://ftp.ca.debian.org/debian/
 
     Rscript setup.R
     R CMD INSTALL class_7.3-15.tar.gz
+
+    git clone https://github.com/dmlc/xgboost
+    cd xgboost
+    git checkout tags/v1.5.2
+    git submodule init
+    git submodule update
+    cd R-package
+    R CMD INSTALL .
+    cd ../..
+    rm -rf xgboost
+
+
     git clone https://github.com/cbcrg/tcoffee.git tcoffee
     cd tcoffee/t_coffee/src
     make t_coffee
@@ -151,6 +153,6 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     cp -r TooT-SC/* /usr/local/bin/TooT-SC
     chmod 755 /usr/local/bin/TooT-SC/src/TooT_SCTool.R
     rm -rf TooT-SC
-    mv TooT_SCTool.R /usr/local/bin/TooT_TSCool.R
-    chmod 755 /usr/local/bin/TooT_TSCool.R
+    mv TooT_SCTool.R /usr/local/bin/TooT_SCTool.R
+    chmod 755 /usr/local/bin/TooT_SCTool.R
 

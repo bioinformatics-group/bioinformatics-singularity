@@ -1,3 +1,3 @@
 #!/bin/sh
 
-/usr/local/bin/TooT-SC/src/TooT_TSCTool.R $@
+/usr/local/bin/TooT-SC/src/TooT_SCTool.R $@

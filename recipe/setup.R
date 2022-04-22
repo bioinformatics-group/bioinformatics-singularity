@@ -40,5 +40,7 @@ install.packages("R.utils")
 install.packages("diceR")
 install.packages("kernlab")
 install.packages("clue")
+install.packages("data.table")
+install.packages("jsonlite")
 
 install.packages("TFTargetCaller_0.7.tar", repos = NULL, type="source")
