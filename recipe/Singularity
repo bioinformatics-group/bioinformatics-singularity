@@ -12,8 +12,8 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     secator.tar.gz
     xdet_linux64
     TFTargetCaller_0.7.tar
-    TooT_TTool.R
-    TooT_SCTool.R
+    TooT-T.R
+    TooT-SC.R
 
 %post
     export DEBIAN_FRONTEND=noninteractive
@@ -140,19 +140,25 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     sed -i "s/\(library([^)]*)\)/suppressMessages(suppressWarnings(\1))/g" /usr/local/bin/TranCEP.R
     rm -rf TranCEP
 
-    git clone https://github.com/ramou/TooT-T.git
+    git clone https://github.com/bioinformatics-group/TooT-T.git
     mkdir /usr/local/bin/TooT-T
     cp -r TooT-T/* /usr/local/bin/TooT-T
-    chmod 755 /usr/local/bin/TooT-T/src/TooT_TTool.R
+    chmod 755 /usr/local/bin/TooT-T/src/TooT-T.R
     rm -rf TooT-T
-    mv TooT_TTool.R /usr/local/bin/TooT_TTool.R
-    chmod 755 /usr/local/bin/TooT_TTool.R
+    mv TooT-T.R /usr/local/bin/TooT-T.R
+    chmod 755 /usr/local/bin/TooT-T.R
 
-    git clone https://github.com/ramou/TooT-SC.git
+    git clone https://github.com/bioinformatics-group/TooT-SC.git
     mkdir /usr/local/bin/TooT-SC
     cp -r TooT-SC/* /usr/local/bin/TooT-SC
-    chmod 755 /usr/local/bin/TooT-SC/src/TooT_SCTool.R
+    chmod 755 /usr/local/bin/TooT-SC/src/TooT-SC.R
     rm -rf TooT-SC
-    mv TooT_SCTool.R /usr/local/bin/TooT_SCTool.R
-    chmod 755 /usr/local/bin/TooT_SCTool.R
+    mv TooT-SC.R /usr/local/bin/TooT-SC.R
+    chmod 755 /usr/local/bin/TooT-SC.R
 
+    git clone https://github.com/bioinformatics-group/TooT-Proteome.git
+    cp TooT-Proteome/TooT-P/TooT-P.py /usr/local/bin
+    chmod 755 /usr/local/bin/TooT-P.py
+    rm -rf TooT-Proteome 
+
+    
