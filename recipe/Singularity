@@ -12,8 +12,6 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     secator.tar.gz
     xdet_linux64
     TFTargetCaller_0.7.tar
-    TooT-T.R
-    TooT-SC.R
 
 %post
     export DEBIAN_FRONTEND=noninteractive
@@ -128,6 +126,20 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     apt-get clean
     rm -r /var/lib/apt/lists/*
 
+###
+# TranCEP
+###
+
+%apprun TranCEP
+    /usr/local/bin/TranCEP.R $@
+
+%applabels TranCEP
+    A tool to predict the substrate class of a given transporter
+
+%apphelp TranCEP
+    Usage: TranCEP -query=<input> [-trancepdir=<trancepdir>] [-out=<outdir>] [-db=<database directory>]
+
+%appinstall TranCEP
     git clone https://github.com/bioinformatics-group/TranCEP.git
     mkdir /usr/local/bin/TranCEPv1.00
     cp TranCEP/src/TranCEPTool.R /usr/local/bin/TranCEP.R
@@ -140,25 +152,99 @@ MirrorURL: http://ftp.ca.debian.org/debian/
     sed -i "s/\(library([^)]*)\)/suppressMessages(suppressWarnings(\1))/g" /usr/local/bin/TranCEP.R
     rm -rf TranCEP
 
+###
+# TooT-T
+###
+
+%apprun TooT-T
+    /usr/local/bin/TooT-T.R $@
+
+%applabels TooT-T
+    A tool that predicts transporter proteins
+
+%apphelp TooT-T
+    Usage: TooT-T.R -query=<input> [-out=<outdir>] [-db=<database path>] [-work=<work path>] [-TooTT=<TooTTdir>]
+    <input> is your sequence input file in fasta format
+    <out> is the output directory where you want the predicted results, formatted as csv
+        <out> defaults to '.'
+    <database path> is the relative path to the database, it should include TCDB for retrieving ATH prediction
+        in addition to the choice of homology database for psi-compositions, tested using Swiss-Port databses (2018)
+        <database path> defaults to './db'
+    <work path> is the path to the working directory for intermediate files. It will be created as needed.
+        <work path> defaults to './work'
+    <TooTTdir> is the directory where the base TooT-T files are located")
+        <TooTTdir> defaults to '/usr/local/bin/TooT-T'
+
+
+
+%appinstall TooT-T
     git clone https://github.com/bioinformatics-group/TooT-T.git
     mkdir /usr/local/bin/TooT-T
     cp -r TooT-T/* /usr/local/bin/TooT-T
     chmod 755 /usr/local/bin/TooT-T/src/TooT-T.R
     rm -rf TooT-T
-    mv TooT-T.R /usr/local/bin/TooT-T.R
+    cat <<'EOF' > /usr/local/bin/TooT-T.R
+#!/bin/sh
+
+/usr/local/bin/TooT-T/src/TooT-T.R $@
+EOF
     chmod 755 /usr/local/bin/TooT-T.R
 
+###
+# TooT-SC
+###
+
+%apprun TooT-SC
+    /usr/local/bin/TooT-SC.R $@
+
+%applabels TooT-SC
+    A tool to predict the substrate class of a given transporter
+
+
+%apphelp TooT-SC
+    Usage: TooT-SC.R -query=<input> [-out=<outdir>] [-db=<database path>] [-work=<work path>] [-TooTSC=<TooTSCdir>]
+    <input> is your sequence input file in fasta format
+    <out> is the output directory where you want the predicted results, formatted as csv
+        <out> defaults to '.'
+    <database path> is the path to the database
+        <database path> defaults to './db'
+    <work path> is the path to the working directory for intermediate files. It will be created as needed.
+        <work path> defaults to './work'
+    <TooTSCdir> is the directory where the base TooT-SC files are located\n")
+        <TooTSCdir> defaults to '/usr/local/bin/TooT-SC'
+
+%appinstall TooT-SC
     git clone https://github.com/bioinformatics-group/TooT-SC.git
     mkdir /usr/local/bin/TooT-SC
     cp -r TooT-SC/* /usr/local/bin/TooT-SC
     chmod 755 /usr/local/bin/TooT-SC/src/TooT-SC.R
     rm -rf TooT-SC
-    mv TooT-SC.R /usr/local/bin/TooT-SC.R
+    cat <<'EOF' > /usr/local/bin/TooT-SC.R
+#!/bin/sh
+
+/usr/local/bin/TooT-SC/src/TooT-SC.R $@
+EOF
     chmod 755 /usr/local/bin/TooT-SC.R
 
+###
+# TooT-P
+###
+
+%apprun TooT-P
+    /usr/local/bin/TooT-P.py $@
+
+%applabels TooT-P
+    A tool to classify transporter proteins. It will filter a fasta-formatted file through TooT-T before sending it through TooT-SC and collating the results
+
+%apphelp TooT-P
+    Usage: TooT-P.py [-h] -query QUERY [-work WORK] [-out OUT] [-db DB]
+                 [-TooTT TOOTT] [-TooTSC TOOTSC]
+
+
+%appinstall TooT-P
     git clone https://github.com/bioinformatics-group/TooT-Proteome.git
     cp TooT-Proteome/TooT-P/TooT-P.py /usr/local/bin
     chmod 755 /usr/local/bin/TooT-P.py
     rm -rf TooT-Proteome 
 
-    
+

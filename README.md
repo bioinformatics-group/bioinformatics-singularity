@@ -54,6 +54,22 @@ singularity exec -B `pwd`:$PWD -B /speed-scratch/bioinformatics-group/datasets/e
 I suggest making the data files (approximately 40G) available to your images on as fast a disk as possible (I've seen putting it in `/dev/shm` suggested).
 =======
 
+## Running our Tools
+While a variety of tools are available in this image, we have included a number using the [SCI-F](https://sci-f.github.io/) approach advocated with Singularity. Namely, one can view our apps in the singularity image via:
+```
+singularity inspect --list-apps <yourimage>
+```
+
+Help is available for each image, e.g.:
+```
+singularity run-help --app TooT-P <youimage>
+```
+
+Scripts can be run via standard execution as described in the help, or via the app interface, e.g.:
+```
+singularity run --app TooT-P <yourimage> -query=<yourfasta>
+```
+
 
 ## Running on Concordia's HPC infrastructure
 If you're at Concordia and have requested access to speed (rt-ex-hpc), then you may want to be running jobs here. You can readily use this image, as we keep a local copy in ```/speed-scratch/bioinformatics-group/bioinformatics-singularity.simg```. In that case you can go to your working directory where you have your expected script and just run it. Keep in mind that speed likes you to use tcsh, but you're running bash from within the image.
