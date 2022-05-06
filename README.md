@@ -15,18 +15,18 @@ yum -y install nano
 `singularity build --sandbox <PathToBasedir>/image Singularity`
 This builds the image as a directory structure that you can go into. You can work in this in writable mode if you need to tweak (or even from outside singularity). 
 
-`singularity build <PathToBasedir>/bioinformatics-singularity.simg <PathToBasedir>/image`
+`singularity build <PathToBasedir>/bioinformatics-singularity.sif <PathToBasedir>/image`
 This builds the image as a squashfs formatted image, suitable for putting on environments where people will/run use it in a fixed form.
 
 # Running the Image
 To run it with our pre-built image, you just call:
 
-```singularity shell https://tootsuite.encs.concordia.ca/singularity-images/bioinformatics-singularity.simg```
+```singularity shell https://tootsuite.encs.concordia.ca/singularity-images/bioinformatics-singularity.sif```
 
 I reccomend running it with an overlay as some of our tools have the bad habit of trying to write into their own temporary space:
 ````sh
 mkdir /<wherever>/overlay
-singularity shell --overlay /<wherever>/overlay https://tootsuite.encs.concordia.ca/singularity-images/bioinformatics-singularity.simg
+singularity shell --overlay /<wherever>/overlay https://tootsuite.encs.concordia.ca/singularity-images/bioinformatics-singularity.sif
 ````
 
 Eventually, intermediate_files used by our tools won't need such a workaround.
@@ -48,7 +48,7 @@ While eggnog-mapper can be found in `/usr/bin/eggnog-mapper'`, we have included 
 Are you running this image at Concordia on speed? We suggest the following example call, which executes the test from their installation guide but maps to the locally stored version of that database:
 
 ````
-singularity exec -B `pwd`:$PWD -B /speed-scratch/bioinformatics-group/datasets/eggnog-mapper:datasets /speed-scratch/bioinformatics-group/bioinformatics.simg emapper.sh --data_dir /datasets -i /usr/bin/eggnog-mapper/test/p53.fa --output p53_maNOG -m diamond
+singularity exec -B `pwd`:$PWD -B /speed-scratch/bioinformatics-group/datasets/eggnog-mapper:datasets /speed-scratch/bioinformatics-group/bioinformatics-singularity.sif emapper.sh --data_dir /datasets -i /usr/bin/eggnog-mapper/test/p53.fa --output p53_maNOG -m diamond
 ````
 
 I suggest making the data files (approximately 40G) available to your images on as fast a disk as possible (I've seen putting it in `/dev/shm` suggested).
@@ -80,7 +80,7 @@ Executing: /usr/local/bin/TooT-SC.R -query=<$CWD>/work/TooT-P/P37327/P37327.fast
 
 
 ## Running on Concordia's HPC infrastructure
-If you're at Concordia and have requested access to speed (rt-ex-hpc), then you may want to be running jobs here. You can readily use this image, as we keep a local copy in ```/speed-scratch/bioinformatics-group/bioinformatics-singularity.simg```. In that case you can go to your working directory where you have your expected script and just run it. Keep in mind that speed likes you to use tcsh, but you're running bash from within the image.
+If you're at Concordia and have requested access to speed (rt-ex-hpc), then you may want to be running jobs here. You can readily use this image, as we keep a local copy in ```/speed-scratch/bioinformatics-group/bioinformatics-singularity.sif```. In that case you can go to your working directory where you have your expected script and just run it. Keep in mind that speed likes you to use tcsh, but you're running bash from within the image.
 
 For example, I can make/go to my working directory
 ```bash
@@ -101,7 +101,7 @@ chmod 700 test.sh
 
 Finally, I run the image with singularity:
 ```bash
-singularity exec -B `pwd`:$PWD /speed-scratch/bioinformatics-group/bioinformatics-singularity.simg ./test.sh
+singularity exec -B `pwd`:$PWD /speed-scratch/bioinformatics-group/bioinformatics-singularity.sif ./test.sh
 ```
 
 I get the expected output that shows my directory contents and the version of ```makeblastdb```
