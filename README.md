@@ -34,7 +34,7 @@ Eventually, intermediate_files used by our tools won't need such a workaround.
 Binaries are made available in ```/usr/bin``` so you can just run things like ```R``` or ```t_coffee```
 
 Among other things, we use:
- * R 3.5
+ * R 3.6.3
  * BLAST 2.6.0+
  * tcoffee (current version from the science packages in Debian Buster)
  * eggnog-mapper (current version from git)
