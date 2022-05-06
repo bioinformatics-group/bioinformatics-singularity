@@ -77,8 +77,9 @@ singularity run --app TooT-P <yourimage> -query=<yourfasta>
 Executing: /usr/local/bin/TooT-T.R -query=<$CWD>/work/TooT-P/P37327/P37327.fasta -db=<$CWD>/db -out=<$CWD>/work/TooT-P/P37327 -work=<$CWD>
 Executing: /usr/local/bin/TooT-SC.R -query=<$CWD>/work/TooT-P/P37327/P37327.fasta -db=<$CWD>/db -out=<$CWD>/work/TooT-P/P37327 -work=<$CWD>
 ```
+...you know, if <yourfasta> just contains the one sequence `P37327`
 
-
+ 
 ## Running on Concordia's HPC infrastructure
 If you're at Concordia and have requested access to speed (rt-ex-hpc), then you may want to be running jobs here. You can readily use this image, as we keep a local copy in ```/speed-scratch/bioinformatics-group/bioinformatics-singularity.sif```. In that case you can go to your working directory where you have your expected script and just run it. Keep in mind that speed likes you to use tcsh, but you're running bash from within the image.
 
