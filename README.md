@@ -58,16 +58,24 @@ I suggest making the data files (approximately 40G) available to your images on 
 While a variety of tools are available in this image, we have included a number using the [SCI-F](https://sci-f.github.io/) approach advocated with Singularity. Namely, one can view our apps in the singularity image via:
 ```
 singularity inspect --list-apps <yourimage>
+TooT-P
+TooT-SC
+TooT-T
+TranCEP
 ```
 
 Help is available for each image, e.g.:
 ```
 singularity run-help --app TooT-P <youimage>
+    Usage: TooT-P.py [-h] -query QUERY [-work WORK] [-out OUT] [-db DB]
+                 [-TooTT TOOTT] [-TooTSC TOOTSC]
 ```
 
 Scripts can be run via standard execution as described in the help, or via the app interface, e.g.:
 ```
 singularity run --app TooT-P <yourimage> -query=<yourfasta>
+Executing: /usr/local/bin/TooT-T.R -query=<$CWD>/work/TooT-P/P37327/P37327.fasta -db=<$CWD>/db -out=<$CWD>/work/TooT-P/P37327 -work=<$CWD>
+Executing: /usr/local/bin/TooT-SC.R -query=<$CWD>/work/TooT-P/P37327/P37327.fasta -db=<$CWD>/db -out=<$CWD>/work/TooT-P/P37327 -work=<$CWD>
 ```
 
 
