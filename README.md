@@ -77,7 +77,7 @@ singularity run --app TooT-P <yourimage> -query=<yourfasta>
 Executing: /usr/local/bin/TooT-T.R -query=<$CWD>/work/TooT-P/P37327/P37327.fasta -db=<$CWD>/db -out=<$CWD>/work/TooT-P/P37327 -work=<$CWD>
 Executing: /usr/local/bin/TooT-SC.R -query=<$CWD>/work/TooT-P/P37327/P37327.fasta -db=<$CWD>/db -out=<$CWD>/work/TooT-P/P37327 -work=<$CWD>
 ```
-...you know, if <yourfasta> just contains the one sequence `P37327`
+...you know, if `<yourfasta>` just contains the one sequence `P37327`
 
  
 ## Running on Concordia's HPC infrastructure
